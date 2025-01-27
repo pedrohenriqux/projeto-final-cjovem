@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdMenu } from "react-icons/md";
 
@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className="bg-zinc-100 flex justify-around items-center py-4">
         <div className='flex items-center gap-6'>
           <Link to="/">
-            <img src={Logo} alt="Logo" className='w-32 h-16' />
+            <img src={Logo} alt="Logo" className='w-34 h-16' />
           </Link>
           <Link to="/cadastro">
             <BtnAjuda />

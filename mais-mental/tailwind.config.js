@@ -7,6 +7,7 @@ export default {
         primary: "#006986",
         secondary: "#29bce4",
         third: "#f7ba34",
+        fourth: "#b5e2ea",
       },
       container: {
         center: true,

@@ -1,10 +1,16 @@
-import React from 'react'
+import React from 'react';
+
+import Navbar from '../../components/Navbar/Navbar';
+import Hero from '../../components/Hero/Hero';
 
 const Home = () => {
   return (
-    <div>
-      <title>+Mental | Página Inicial</title>
-    </div>
+    <>
+      <div>
+        <Navbar />
+        <Hero />
+      </div>
+    </>
   )
 }
 

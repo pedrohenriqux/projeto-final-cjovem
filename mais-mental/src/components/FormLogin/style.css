@@ -1,0 +1,40 @@
+form h2 {
+    font-weight: 600;
+    font-size: 30px;
+    margin: 20px;
+}
+
+.field {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 7px;
+    width: 240px
+}
+
+#checkBox {
+    height: 20px;
+    width: 20px;
+    margin: 2px 8px 0px 0px;
+    cursor: pointer;
+}
+
+.btnSubmit {
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 7px;
+    width: 180px;
+    font-size: 20px;
+    font-weight: 700;
+    transition: 0.15s;
+}
+
+.btnSubmit:hover {
+    background-color: #d6d6d6;
+    width: 185px;
+}
+
+form p {
+    margin: 15px 0 10px 0;
+    font-size: 14px;
+}

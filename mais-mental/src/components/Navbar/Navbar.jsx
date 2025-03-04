@@ -25,7 +25,7 @@ const Navbar = () => {
             <Link to="/buscar-profissionais" className='inline-block py-2 px-3 hover:text-third duration-200 relative group'>
               buscar profissionais
             </Link>
-            <Link to="/cadastro" className='inline-block py-2 px-3 hover:text-third duration-200 relative group'>
+            <Link to="/SouPsicologo" className='inline-block py-2 px-3 hover:text-third duration-200 relative group'>
               sou psicólogo
             </Link>
             <button

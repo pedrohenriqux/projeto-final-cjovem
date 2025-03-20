@@ -16,5 +16,12 @@ datasource db {
 model Depoimento {
   id_depoimento     Int @id @default(autoincrement())
   texto_depoimento  String
-  data_depoimento   DateTime
+  data_depoimento   DateTime @default(now())
+}
+
+model GrupoDeApoio {
+  id_grupo_apoio Int @id @default(autoincrement())
+  nome_grupo     String @unique
+  descricao      String?
+  regiao         String
 }

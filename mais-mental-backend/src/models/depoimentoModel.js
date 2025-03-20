@@ -1,59 +1,43 @@
 const prisma = require('../prisma');
 
 const listarDepoimentos = async () => {
-    return await prisma.depoimento.findMany();
+    return await prisma.Depoimento.findMany();
 };
 
-const listarDepoimentosPorId = async (id) => {
-    const depoimento = await prisma.depoimento.findUnique({
-        where: { id },
+const listarDepoimentosPorId = async (id_depoimento) => {
+    return await prisma.Depoimento.findUnique({
+        where: { id_depoimento },
     });
-
-    if (!depoimento) {
-        throw new Error("Depoimento não encontrado.");
-    }
-
-    return depoimento;
 };
 
-const criarDepoimentos = async ({ texto_depoimento, data_depoimento }) => {
-    return await prisma.depoimento.create({
+const criarDepoimentos = async ({ texto_depoimento }) => {
+    return await prisma.Depoimento.create({
         data: {
             texto_depoimento,
-            data_depoimento
         }
     });
 };
 
-const atualizarDepoimento = async (id, { texto_depoimento, data_depoimento }) => {
-    const depoimento = await prisma.depoimento.findUnique({
-        where: { id },
+const atualizarDepoimento = async (id_depoimento, { texto_depoimento }) => {
+    const depoimento = await prisma.Depoimento.findUnique({
+        where: { id_depoimento },
     });
 
     if (!depoimento) {
         throw new Error("Depoimento não encontrado.");
     }
 
-    return await prisma.depoimento.update({
-        where: { id },
+    return await prisma.Depoimento.update({
+        where: { id_depoimento },
         data: {
             texto_depoimento,
-            data_depoimento
         },
     });
 };
 
-const excluirDepoimento = async (id) => {
-    const depoimento = await prisma.depoimento.findUnique({
-        where: { id },
-    });
-
-    if (!depoimento) {
-        throw new Error("Depoimento não encontrado.");
-    }
-
-    await prisma.depoimento.delete({
-        where: { id },
+const excluirDepoimento = async (id_depoimento) => {
+    return await prisma.Depoimento.delete({
+        where: { id_depoimento },
     });
 };
 

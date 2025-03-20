@@ -12,8 +12,13 @@ exports.listarDepoimentos = async (req, res) => {
 
 exports.listarDepoimentosPorId = async (req, res) => {
     try {
-        const { id } = req.params;
-        const depoimento = await Depoimento.listarDepoimentosPorId(Number(id));
+        const { id_depoimento } = req.params;
+        const depoimento = await Depoimento.listarDepoimentosPorId(Number(id_depoimento));
+
+        if (!depoimento) {
+            return res.status(404).json({ error: "Depoimento não encontrado." });
+        }
+
         res.status(200).json(depoimento);
     } catch (error) {
         console.error("Erro ao listar o depoimento.", error);
@@ -23,15 +28,14 @@ exports.listarDepoimentosPorId = async (req, res) => {
 
 exports.criarDepoimentos = async (req, res) => {
     try {
-        const { texto_depoimento, data_depoimento } = req.body;
+        const { texto_depoimento } = req.body;
 
-        if (!texto_depoimento || !data_depoimento) {
+        if (!texto_depoimento) {
             return res.status(400).json({ error: "Os campos de texto e data são obrigatórios." })
         }
 
         const novoDepoimento = await Depoimento.criarDepoimentos({
             texto_depoimento,
-            data_depoimento
         });
 
         res.status(201).json(novoDepoimento);
@@ -43,16 +47,15 @@ exports.criarDepoimentos = async (req, res) => {
 
 exports.atualizarDepoimentos = async (req, res) => {
     try {
-        const { id } = req.params;
-        const { texto_depoimento, data_depoimento } = req.body;
+        const { id_depoimento } = req.params;
+        const { texto_depoimento } = req.body;
 
-        if (!texto_depoimento || !data_depoimento) {
+        if (!texto_depoimento) {
             return res.status(400).json({ error: "Os campos de texto e data são obrigatórios." });
         }
 
-        const depoimentoAtualizado = await Depoimento.atualizarDepoimento(Number(id), {
+        const depoimentoAtualizado = await Depoimento.atualizarDepoimento(Number(id_depoimento), {
             texto_depoimento,
-            data_depoimento
         });
 
         res.status(200).json(depoimentoAtualizado);
@@ -64,8 +67,8 @@ exports.atualizarDepoimentos = async (req, res) => {
 
 exports.excluirDepoimentos = async (req, res) => {
     try {
-        const { id } = req.params;
-        await Depoimento.excluirDepoimento(Number(id));
+        const { id_depoimento } = req.params;
+        await Depoimento.excluirDepoimento(Number(id_depoimento));
         res.status(204).send();
     } catch (error) {
         console.error("Erro ao excluir o depoimento.", error);

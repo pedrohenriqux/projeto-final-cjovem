@@ -13,6 +13,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TypeUser {
+  ADMIN
+  PACIENTE
+  PROFISSIONAL
+}
+
+enum Genero {
+  MASCULINO
+  FEMININO
+  NAO_BINARIO
+  OUTROS
+  PREFIRO_NAO_INFORMAR
+}
+
+enum EspecialidadeProfissional {
+  ACONSELHAMENTO_LUTO                   // Aconselhamento Luto
+  APOIO_PSICOLOGICO_INFANTIL            // Apoio Psicológico Infantil
+  INTERVENCAO_EM_CRISE                  // Intervenção em Crise
+  NEUROPSICOLOGIA                       // Neuropsicologia
+  PSICANALISE                           // Psicanálise
+  PSICOLOGIA_COMPORTAMENTAL             // Psicologia Comportamental
+  PSICOLOGIA_DO_ADOLESCENTE             // Psicologia do Adolescente
+  PSICOLOGIA_EDUCACIONAL                // Psicologia Educacional
+  PSICOLOGIA_ESPORTIVA                  // Psicologia Esportiva
+  PSICOLOGIA_FORENSE                    // Psicologia Forense
+  PSICOLOGIA_ORGANIZACIONAL             // Psicologia Organizacional
+  PSICOTERAPIA_COGNITIVO_COMPORTAMENTAL // Psicoterapia Cognitivo-Comportamental (TCC)
+  SAUDE_MENTAL_LGBTQIA                  // Saúde Mental LGBTQIA+
+  TERAPIA_DE_CASAL                      // Terapia de Casal
+  TERAPIA_DE_GRUPO                      // Terapia de Grupo
+  TERAPIA_FAMILIAR                      // Terapia Familiar
+  TERAPIA_HOLISTICA                     // Terapia Holística
+  TERAPIA_OCUPACIONAL                   // Terapia Ocupacional
+  TERAPIAS_DE_TRAUMA                    // Terapias de Trauma (EDMR, por exemplo)
+}
+
+enum FaixaEtariaAtendimento {
+  CRIANCAS        // (4 a 12 anos)
+  ADOLESCENTES    // (13 a 17 anos)
+  JOVENS_ADULTOS  // (18 a 29 anos)
+  ADULTOS         // (30 a 59 anos)
+  IDOSOS          // (60 anos ou mais)
+  TODAS_AS_FAIXAS // Todas as faixas etárias
+}
+
 model Depoimento {
   id_depoimento     Int @id @default(autoincrement())
   texto_depoimento  String
@@ -24,4 +69,60 @@ model GrupoDeApoio {
   nome_grupo     String @unique
   descricao      String?
   regiao         String
+}
+
+model User {
+  id_user         Int @id @default(autoincrement())
+  nome_user       String
+  email_user      String @unique
+  senha_user      String
+  type_user       TypeUser
+  paciente_id     Paciente?
+  profissional_id Profissional?
+}
+
+model Paciente {
+  id_paciente           Int @id @default(autoincrement())
+  nome_paciente         String
+  data_nascimento       DateTime
+  idade                 Int
+  cpf                   String @unique
+  genero                Genero
+  ocupacao              String?
+  principal_queixa      String
+  historico_familiar    String
+  uso_medicamentos      String
+  objetivo_terapia      String
+  responsavel           String?
+  telefone_responsavel  String?
+  foto_paciente         String?
+
+  user_id               Int?
+  user                  User? @relation(fields: [user_id], references: [id_user])
+
+  endereco_paciente     Endereco[]
+  telefone_paciente     Telefone[]
+  atendimentos_paciente Atendimento[]
+}
+
+model Profissional {
+  id_profissional            Int @id @default(autoincrement())
+  nome_profissional          String
+  data_nascimento            DateTime
+  idade                      Int
+  cpf                        String @unique
+  genero                     Genero
+  matricula_profissional     String @unique
+  especializacao             EspecialidadeProfissional
+  descricao                  String?
+  faixa_etaria_atendimento   FaixaEtariaAtendimento
+  quantd_atendimentos_gratis Int
+  foto_profissional          String?
+
+  user_id                    Int?
+  user                       User? @relation(fields: [user_id], references: [id_user])
+
+  endereco_profissional      Endereco[]     // criar tabela
+  telefone_profissional      Telefone[]     // criar tabela
+  atendimentos_profissional  Atendimento[]  // criar tabela
 }

@@ -58,23 +58,28 @@ enum FaixaEtariaAtendimento {
   TODAS_AS_FAIXAS // Todas as faixas etárias
 }
 
+enum StatusAtendimento {
+  AGENDADO
+  REALIZADO
+  CANCELADO
+}
+
 model Depoimento {
-  id_depoimento     Int @id @default(autoincrement())
+  id_depoimento     Int       @id @default(autoincrement())
   texto_depoimento  String
-  data_depoimento   DateTime @default(now())
+  data_depoimento   DateTime  @default(now())
 }
 
 model GrupoDeApoio {
-  id_grupo_apoio Int @id @default(autoincrement())
-  nome_grupo     String @unique
+  id_grupo_apoio Int      @id @default(autoincrement())
+  nome_grupo     String   @unique
   descricao      String?
-  regiao         String
+  regiao         String   @db.Char(2)
 }
 
 model User {
-  id_user         Int @id @default(autoincrement())
-  nome_user       String
-  email_user      String @unique
+  id_user         Int     @id @default(autoincrement())
+  email_user      String  @unique
   senha_user      String
   type_user       TypeUser
   paciente_id     Paciente?
@@ -82,11 +87,11 @@ model User {
 }
 
 model Paciente {
-  id_paciente           Int @id @default(autoincrement())
+  id_paciente           Int       @id @default(autoincrement())
   nome_paciente         String
   data_nascimento       DateTime
   idade                 Int
-  cpf                   String @unique
+  cpf                   String    @unique
   genero                Genero
   ocupacao              String?
   principal_queixa      String
@@ -97,8 +102,8 @@ model Paciente {
   telefone_responsavel  String?
   foto_paciente         String?
 
-  user_id               Int?
-  user                  User? @relation(fields: [user_id], references: [id_user])
+  user_id               Int       @unique
+  user                  User      @relation(fields: [user_id], references: [id_user])
 
   endereco_paciente     Endereco[]
   telefone_paciente     Telefone[]
@@ -106,23 +111,76 @@ model Paciente {
 }
 
 model Profissional {
-  id_profissional            Int @id @default(autoincrement())
+  id_profissional            Int        @id @default(autoincrement())
   nome_profissional          String
   data_nascimento            DateTime
   idade                      Int
-  cpf                        String @unique
+  cpf                        String     @unique
   genero                     Genero
-  matricula_profissional     String @unique
+  matricula_profissional     String     @unique
   especializacao             EspecialidadeProfissional
   descricao                  String?
   faixa_etaria_atendimento   FaixaEtariaAtendimento
   quantd_atendimentos_gratis Int
   foto_profissional          String?
 
-  user_id                    Int?
-  user                       User? @relation(fields: [user_id], references: [id_user])
+  user_id                    Int        @unique
+  user                       User       @relation(fields: [user_id], references: [id_user])
 
-  endereco_profissional      Endereco[]     // criar tabela
-  telefone_profissional      Telefone[]     // criar tabela
-  atendimentos_profissional  Atendimento[]  // criar tabela
+  endereco_profissional      Endereco[]
+  telefone_profissional      Telefone[]
+  atendimentos_profissional  Atendimento[]
+}
+
+model Endereco {
+  id_endereco       Int             @id @default(autoincrement())
+  cep               String
+  cidade            String
+  uf                String          @db.Char(2)
+  bairro            String
+  rua               String
+  numero_residencia String?
+
+  paciente_id       Int?
+  paciente          Paciente?       @relation(fields: [paciente_id], references: [id_paciente])
+
+  profissional_id   Int?
+  profissional      Profissional?   @relation(fields: [profissional_id], references: [id_profissional])
+}
+
+model Telefone {
+  id_telefone       Int             @id @default(autoincrement())
+  numero_telefone   String
+
+  paciente_id       Int?
+  paciente          Paciente?       @relation(fields: [paciente_id], references: [id_paciente])
+
+  profissional_id   Int?
+  profissional      Profissional?   @relation(fields: [profissional_id], references: [id_profissional])
+}
+
+model Atendimento {
+  id_atendimento      Int             @id @default(autoincrement())
+  data_atendimento    DateTime
+  sintomas            String?
+  relato_atendimento  String?
+  status              StatusAtendimento
+  evolucao            EvolucaoClinica?
+
+  paciente_id         Int
+  paciente            Paciente        @relation(fields: [paciente_id], references: [id_paciente])
+
+  profissional_id     Int
+  profissional        Profissional    @relation(fields: [profissional_id], references: [id_profissional])
+}
+
+model EvolucaoClinica {
+  id_evolucao       Int             @id @default(autoincrement())
+  data              DateTime
+  mudancas_perfil   String?
+  medicacao         String?
+  recomendacoes     String?
+
+  atendimento_id    Int            @unique
+  atendimento       Atendimento    @relation(fields: [atendimento_id], references: [id_atendimento])
 }

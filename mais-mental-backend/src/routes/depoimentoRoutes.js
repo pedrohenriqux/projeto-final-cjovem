@@ -4,9 +4,9 @@ const depoimentoController = require('../controllers/depoimentoController');
 const router = express.Router();
 
 router.get('/', depoimentoController.listarDepoimentos);
-router.get('/:id_depoimento', depoimentoController.listarDepoimentosPorId);
+router.get('/:id_depoimento', depoimentoController.buscarDepoimentoPorId);
 router.post('/', depoimentoController.criarDepoimentos);
-router.put('/:id_depoimento', depoimentoController.atualizarDepoimentos);
-router.delete('/:id_depoimento', depoimentoController.excluirDepoimentos);
+router.put('/:id_depoimento', depoimentoController.atualizarDepoimento);
+router.delete('/:id_depoimento', depoimentoController.excluirDepoimento);
 
 module.exports = router;

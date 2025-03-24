@@ -41,6 +41,10 @@ exports.criarEndereco = async (req, res) => {
             return res.status(400).json({ error: "Alguns campos do cadastro são obrigatórios. Verifique e tente novamente" });
         }
 
+        if ((paciente_id && profissional_id) || (!paciente_id && !profissional_id)) {
+            return res.status(400).json({ error: "O endereço deve pertencer a um usuário paciente ou profissional, escolha um." });
+        }
+
         const novoEndereco = await Endereco.criarEndereco({
             cep,
             cidade,
@@ -62,6 +66,11 @@ exports.atualizarEndereco = async (req, res) => {
     try {
         const { id_endereco } = req.params;
         const dadosAtualizados = req.body;
+
+        if (paciente_id && profissional_id) {
+            return res.status(400).json({ error: "O endereço deve pertencer a um usuário paciente ou profissional, escolha um." });
+        }
+
         const enderecoAtualizado = await Endereco.atualizarEndereco(Number(id_endereco), dadosAtualizados);
         res.status(200).json(enderecoAtualizado);
     } catch (error) {

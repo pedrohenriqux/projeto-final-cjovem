@@ -21,6 +21,10 @@ const criarEndereco = async ({
     profissional_id,
 }) => {
 
+    if ((paciente_id && profissional_id) || (!paciente_id && !profissional_id)) {
+        throw new Error("O endereço deve estar vinculado a um usuário.");
+    }
+
     return await prisma.Endereco.create({
         data: {
             cep,

@@ -4,7 +4,7 @@ const listarDepoimentos = async () => {
     return await prisma.Depoimento.findMany();
 };
 
-const listarDepoimentosPorId = async (id_depoimento) => {
+const buscarDepoimentoPorId = async (id_depoimento) => {
     return await prisma.Depoimento.findUnique({
         where: { id_depoimento },
     });
@@ -43,7 +43,7 @@ const excluirDepoimento = async (id_depoimento) => {
 
 module.exports = {
     listarDepoimentos,
-    listarDepoimentosPorId,
+    buscarDepoimentoPorId,
     criarDepoimentos,
     atualizarDepoimento,
     excluirDepoimento

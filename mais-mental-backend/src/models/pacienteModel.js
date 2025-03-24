@@ -4,7 +4,7 @@ const listarPacientes = async () => {
     return await prisma.Paciente.findMany();
 };
 
-const listarPacientePorId = async (id_paciente) => {
+const buscarPacientePorId = async (id_paciente) => {
     return await prisma.Paciente.findUnique({
         where: { id_paciente },
     });
@@ -87,7 +87,7 @@ const excluirPaciente = async (id_paciente) => {
 
 module.exports = {
     listarPacientes,
-    listarPacientePorId,
+    buscarPacientePorId,
     criarPaciente,
     atualizarPaciente,
     excluirPaciente,

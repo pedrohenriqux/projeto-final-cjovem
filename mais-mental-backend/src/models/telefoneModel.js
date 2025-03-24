@@ -4,7 +4,7 @@ const listarTelefones = async () => {
     return await prisma.Telefone.findMany();
 };
 
-const listarTelefonePorId = async (id_telefone) => {
+const buscarTelefonePorId = async (id_telefone) => {
     return await prisma.Telefone.findUnique({
         where: { id_telefone },
     });
@@ -68,7 +68,7 @@ const excluirTelefone = async (id_telefone) => {
 
 module.exports = {
     listarTelefones,
-    listarTelefonePorId,
+    buscarTelefonePorId,
     criarTelefone,
     atualizarTelefone,
     excluirTelefone,

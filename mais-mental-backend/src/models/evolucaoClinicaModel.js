@@ -13,7 +13,7 @@ const listarEvolucoes = async () => {
     });
 };
 
-const listarEvolucaoPorId = async (id_evolucao) => {
+const buscarEvolucaoPorId = async (id_evolucao) => {
     return await prisma.EvolucaoClinica.findUnique({
         where: { id_evolucao },
         include: {
@@ -90,7 +90,7 @@ const excluirEvolucao = async (id_evolucao) => {
 
 module.exports = {
     listarEvolucoes,
-    listarEvolucaoPorId,
+    buscarEvolucaoPorId,
     criarEvolucao,
     atualizarEvolucao,
     excluirEvolucao,

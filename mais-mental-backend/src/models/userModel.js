@@ -4,7 +4,7 @@ const listarUsers = async () => {
     return await prisma.User.findMany();
 };
 
-const listarUserPorId = async (id_user) => {
+const buscarUserPorId = async (id_user) => {
     return await prisma.User.findUnique({
         where: { id_user },
     });
@@ -74,7 +74,7 @@ const excluirUser = async (id_user) => {
 
 module.exports = {
     listarUsers,
-    listarUserPorId,
+    buscarUserPorId,
     criarUser,
     atualizarUser,
     excluirUser,

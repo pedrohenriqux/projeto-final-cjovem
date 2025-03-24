@@ -4,7 +4,7 @@ const listarGrupos = async () => {
     return await prisma.GrupoDeApoio.findMany();
 };
 
-const listarGrupoPorId = async (id_grupo_apoio) => {
+const buscarGrupoPorId = async (id_grupo_apoio) => {
     return await prisma.GrupoDeApoio.findUnique({
         where: { id_grupo_apoio },
     });
@@ -15,7 +15,7 @@ const criarGrupo = async ({ nome_grupo, descricao, regiao }) => {
         data: {
             nome_grupo,
             descricao,
-            regiao,
+            regiao: regiao.toUpperCase(),
         }
     });
 };
@@ -47,7 +47,7 @@ const excluirGrupo = async (id_grupo_apoio) => {
 
 module.exports = {
     listarGrupos,
-    listarGrupoPorId,
+    buscarGrupoPorId,
     criarGrupo,
     atualizarGrupo,
     excluirGrupo

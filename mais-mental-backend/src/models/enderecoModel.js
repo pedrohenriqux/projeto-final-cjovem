@@ -4,7 +4,7 @@ const listarEnderecos = async () => {
     return await prisma.Endereco.findMany();
 };
 
-const listarEnderecoPorId = async (id_endereco) => {
+const buscarEnderecoPorId = async (id_endereco) => {
     return await prisma.Endereco.findUnique({
         where: { id_endereco },
     });
@@ -29,7 +29,7 @@ const criarEndereco = async ({
         data: {
             cep,
             cidade,
-            uf,
+            uf: uf.toUpperCase(),
             bairro,
             rua,
             numero_residencia,
@@ -74,7 +74,7 @@ const excluirEndereco = async (id_endereco) => {
 
 module.exports = {
     listarEnderecos,
-    listarEnderecoPorId,
+    buscarEnderecoPorId,
     criarEndereco,
     atualizarEndereco,
     excluirEndereco,

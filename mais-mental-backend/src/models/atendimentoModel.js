@@ -6,9 +6,10 @@ const listarAtendimentos = async () => {
     });
 };
 
-const listarAtendimentoPorId = async (id_atendimento) => {
+const buscarAtendimentoPorId = async (id_atendimento) => {
     return await prisma.Atendimento.findUnique({
         where: { id_atendimento },
+        include: { paciente: true, profissional: true }
     });
 };
 
@@ -77,7 +78,7 @@ const excluirAtendimento = async (id_atendimento) => {
 
 module.exports = {
     listarAtendimentos,
-    listarAtendimentoPorId,
+    buscarAtendimentoPorId,
     criarAtendimento,
     atualizarAtendimento,
     excluirAtendimento,

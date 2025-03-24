@@ -4,7 +4,7 @@ const listarProfissionais = async () => {
     return await prisma.Profissional.findMany();
 };
 
-const listarProfissionalPorId = async (id_profissional) => {
+const buscarProfissionalPorId = async (id_profissional) => {
     return await prisma.Profissional.findUnique({
         where: { id_profissional },
     });
@@ -81,7 +81,7 @@ const excluirProfissional = async (id_profissional) => {
 
 module.exports = {
     listarProfissionais,
-    listarProfissionalPorId,
+    buscarProfissionalPorId,
     criarProfissional,
     atualizarProfissional,
     excluirProfissional,

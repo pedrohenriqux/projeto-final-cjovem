@@ -9,10 +9,10 @@ exports.listarUsers = async (req, res) => {
     }
 };
 
-exports.listarUserPorId = async (req, res) => {
+exports.buscarUserPorId = async (req, res) => {
     try {
         const { id_user } = req.params;
-        const user = await User.listarUserPorId(Number(id_user));
+        const user = await User.buscarUserPorId(Number(id_user));
 
         if (!user) {
             return res.status(400).json({ error: "Usuário não encontrado." });

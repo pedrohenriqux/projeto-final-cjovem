@@ -10,10 +10,10 @@ exports.listarDepoimentos = async (req, res) => {
     }
 };
 
-exports.listarDepoimentosPorId = async (req, res) => {
+exports.buscarDepoimentoPorId = async (req, res) => {
     try {
         const { id_depoimento } = req.params;
-        const depoimento = await Depoimento.listarDepoimentosPorId(Number(id_depoimento));
+        const depoimento = await Depoimento.buscarDepoimentoPorId(Number(id_depoimento));
 
         if (!depoimento) {
             return res.status(404).json({ error: "Depoimento não encontrado." });
@@ -45,7 +45,7 @@ exports.criarDepoimentos = async (req, res) => {
     }
 };
 
-exports.atualizarDepoimentos = async (req, res) => {
+exports.atualizarDepoimento = async (req, res) => {
     try {
         const { id_depoimento } = req.params;
         const { texto_depoimento } = req.body;
@@ -65,7 +65,7 @@ exports.atualizarDepoimentos = async (req, res) => {
     }
 };
 
-exports.excluirDepoimentos = async (req, res) => {
+exports.excluirDepoimento = async (req, res) => {
     try {
         const { id_depoimento } = req.params;
         await Depoimento.excluirDepoimento(Number(id_depoimento));

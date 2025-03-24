@@ -9,10 +9,10 @@ exports.listarEvolucoes = async (req, res) => {
     }
 };
 
-exports.listarEvolucaoPorId = async (req, res) => {
+exports.buscarEvolucaoPorId = async (req, res) => {
     try {
         const { id_evolucao } = req.params;
-        const evolucao = await EvolucaoClinica.listarEvolucaoPorId(Number(id_evolucao));
+        const evolucao = await EvolucaoClinica.buscarEvolucaoPorId(Number(id_evolucao));
 
         if (!evolucao) {
             return res.status(400).json({ error: "Evolução clínica não encontrada." });

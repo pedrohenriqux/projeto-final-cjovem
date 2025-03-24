@@ -9,10 +9,10 @@ exports.listarPacientes = async (req, res) => {
     }
 };
 
-exports.listarPacientePorId = async (req, res) => {
+exports.buscarPacientePorId = async (req, res) => {
     try {
         const { id_paciente } = req.params;
-        const paciente = await Paciente.listarPacientePorId(Number(id_paciente));
+        const paciente = await Paciente.buscarPacientePorId(Number(id_paciente));
 
         if (!paciente) {
             return res.status(400).json({ error: "Paciente não encontrado." });

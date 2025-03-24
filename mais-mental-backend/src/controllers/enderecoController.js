@@ -9,10 +9,10 @@ exports.listarEnderecos = async (req, res) => {
     }
 };
 
-exports.listarEnderecoPorId = async (req, res) => {
+exports.buscarEnderecoPorId = async (req, res) => {
     try {
         const { id_endereco } = req.params;
-        const endereco = await Endereco.listarEnderecoPorId(Number(id_endereco));
+        const endereco = await Endereco.buscarEnderecoPorId(Number(id_endereco));
 
         if (!endereco) {
             return res.status(400).json({ error: "Endereço não encontrado." });
@@ -67,7 +67,7 @@ exports.atualizarEndereco = async (req, res) => {
         const { id_endereco } = req.params;
         const dadosAtualizados = req.body;
 
-        if (paciente_id && profissional_id) {
+        if (dadosAtualizados.paciente_id && dadosAtualizados.profissional_id) {
             return res.status(400).json({ error: "O endereço deve pertencer a um usuário paciente ou profissional, escolha um." });
         }
 

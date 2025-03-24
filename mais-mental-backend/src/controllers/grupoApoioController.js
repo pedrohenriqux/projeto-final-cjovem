@@ -10,10 +10,10 @@ exports.listarGrupos = async (req, res) => {
     }
 };
 
-exports.listarGrupoPorId = async (req, res) => {
+exports.buscarGrupoPorId = async (req, res) => {
     try {
         const { id_grupo_apoio } = req.params;
-        const grupo = await GrupoApoio.listarGrupoPorId(Number(id_grupo_apoio));
+        const grupo = await GrupoApoio.buscarGrupoPorId(Number(id_grupo_apoio));
 
         if (!grupo) {
             return res.status(400).json({ error: "Grupo não encontrado." });

@@ -9,10 +9,10 @@ exports.listarAtendimentos = async (req, res) => {
     }
 };
 
-exports.listarAtendimentoPorId = async (req, res) => {
+exports.buscarAtendimentoPorId = async (req, res) => {
     try {
         const { id_atendimento } = req.params;
-        const atendimento = await Atendimento.listarAtendimentoPorId(Number(id_atendimento));
+        const atendimento = await Atendimento.buscarAtendimentoPorId(Number(id_atendimento));
 
         if (!atendimento) {
             return res.status(400).json({ error: "Atendimento não encontrado." });

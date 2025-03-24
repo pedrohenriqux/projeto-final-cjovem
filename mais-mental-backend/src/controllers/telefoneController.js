@@ -9,10 +9,10 @@ exports.listarTelefones = async (req, res) => {
     }
 };
 
-exports.listarTelefonePorId = async (req, res) => {
+exports.buscarTelefonePorId = async (req, res) => {
     try {
         const { id_telefone } = req.params;
-        const telefone = await Telefone.listarTelefonePorId(Number(id_telefone));
+        const telefone = await Telefone.buscarTelefonePorId(Number(id_telefone));
 
         if (!telefone) {
             return res.status(400).json({ error: "Telefone não encontrado." });

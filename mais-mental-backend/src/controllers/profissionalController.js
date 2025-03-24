@@ -9,10 +9,10 @@ exports.listarProfissionais = async (req, res) => {
     }
 };
 
-exports.listarProfissionalPorId = async (req, res) => {
+exports.buscarProfissionalPorId = async (req, res) => {
     try {
         const { id_profissional } = req.params;
-        const profissional = await Profissional.listarProfissionalPorId(Number(id_profissional));
+        const profissional = await Profissional.buscarProfissionalPorId(Number(id_profissional));
 
         if (!profissional) {
             return res.status(400).json({ error: "Profissional não encontrado." });

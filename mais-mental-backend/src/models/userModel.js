@@ -60,10 +60,20 @@ const atualizarUser = async (id_user, { email_user, senha_user, type_user }) => 
 const excluirUser = async (id_user) => {
     const user = await prisma.User.findUnique({
         where: { id_user },
-        include: { paciente: true, profissional: true },
     });
 
-    if (user.paciente || user.profissional) {
+    const paciente = await prisma.Paciente.findFirst({
+        where: { user_id: id_user },
+    });
+    const profissional = await prisma.Profissional.findFirst({
+        where: { user_id: id_user },
+    });
+
+    if (!user) {
+        throw new Error("Usuário não encontrado.");
+    }
+
+    if (paciente || profissional) {
         throw new Error("Usuário está associado a um paciente ou profissional e não pode ser excluído.");
     }
 

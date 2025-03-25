@@ -1,4 +1,6 @@
+const cors = require('cors');
 const express = require('express');
+
 const atedimentoRoutes = require('./routes/atendimentoRoutes');
 const depoimentoRoutes = require('./routes/depoimentoRoutes');
 const enderecoRoutes = require('./routes/enderecoRoutes');
@@ -10,6 +12,7 @@ const telefoneRoutes = require('./routes/telefoneRoutes');
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 app.use('/atendimentos', atedimentoRoutes);

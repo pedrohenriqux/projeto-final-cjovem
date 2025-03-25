@@ -38,6 +38,7 @@ exports.criarProfissional = async (req, res) => {
             faixa_etaria_atendimento,
             quantd_atendimentos_gratis,
             foto_profissional,
+            user_id,
         } = req.body;
 
         if (!nome_profissional || !data_nascimento || !idade || !cpf || !genero ||
@@ -58,6 +59,7 @@ exports.criarProfissional = async (req, res) => {
             faixa_etaria_atendimento,
             quantd_atendimentos_gratis,
             foto_profissional,
+            user_id,
         });
 
         res.status(201).json(novoProfissional);

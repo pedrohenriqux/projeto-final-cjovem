@@ -22,6 +22,7 @@ const criarProfissional = async ({
     faixa_etaria_atendimento,
     quantd_atendimentos_gratis,
     foto_profissional,
+    user_id,
 }) => {
 
     const profissionalExistente = await prisma.Profissional.findUnique({
@@ -45,6 +46,7 @@ const criarProfissional = async ({
             faixa_etaria_atendimento,
             quantd_atendimentos_gratis,
             foto_profissional,
+            user_id,
         }
     });
 };

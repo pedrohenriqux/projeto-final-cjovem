@@ -1,3 +1,4 @@
+const prisma = require('../prisma');
 const Atendimento = require('../models/atendimentoModel');
 
 exports.listarAtendimentos = async (req, res) => {

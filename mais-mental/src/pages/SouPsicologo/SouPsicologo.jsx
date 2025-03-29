@@ -22,4 +22,4 @@ const LoginProfissional = () =>{
     )
     
 }
-export default SouPsicologo;
+export default LoginProfissional;

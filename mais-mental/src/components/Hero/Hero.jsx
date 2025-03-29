@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import BtnAjuda from '../BtnAjuda/BtnAjuda';
 import ImgHero from '../../assets/Hero/ImgHero.png';
@@ -6,22 +7,31 @@ import ImgHero from '../../assets/Hero/ImgHero.png';
 const Hero = () => {
   return (
     <>
-        <section className='bg-zinc-100 overflow-hidden relative'>
-            <div className='container grid grid-cols-1 md:grid-cols-2 min-h-[600px]'>
-                <div className='flex flex-col justify-center py-14 md:py-0 relative z-20'>
-                    <div className='text-center md:text-left space-y-10 lg:max-w-[400px]'>
-                        <h1 className='text-xl lg:text-2xl font-bold !leading-snug'>
-                            A Clínica <span className='text-primary'>+Mental</span> está aqui
-                            para conectar você à profissionais qualificados e solucionar seus
-                            impasses. Buscamos promover atendimentos personalizados e de baixo
-                            custo. <span className='text-secondary'>Venha para a +Mental</span>
-                        </h1>
-                        <BtnAjuda />
+        <section className='bg-zinc-100 py-12 md:py-20 px-4 sm:px-8 lg:px-16 xl:px-20 2xl:px-24'>
+            <div className=' mx-auto max-w-7xl flex flex-col md:flex-row items-center gap-8'>
+                <div className='md:w-1/2 space-y-6'>
+                    <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold leading-tight'>
+                        A Clínica <span className='text-primary'>+Mental</span> está aqui
+                        para conectar você à <span className='text-secondary'>profissionais
+                        qualificados</span>.
+                    </h1>
+                    <p className='text-lg text-gray-700'>Promovemos atendimentos personalizados
+                        e acessíveis para solucionar seus impasses.
+                        <span className='block font-semibold text-primary mt-2'>Venha para a +MENTAL</span>
+                    </p>
+
+                    <div className='mt-6'>
+                        <Link to="/cadastro" className='inline-block'>
+                            <BtnAjuda />
+                        </Link>
                     </div>
-                    
                 </div>
-                <div className='flex justify-center items-center'>
-                    <img src={ImgHero} alt="ImgHero" />
+                <div className='md:w-1/2 flex justify-center'>
+                    <img
+                        src={ImgHero}
+                        alt="Profissional de Saúde Mental"
+                        className='rounded-lg max-w-full h-auto'
+                    />
                 </div>
             </div>
         </section>

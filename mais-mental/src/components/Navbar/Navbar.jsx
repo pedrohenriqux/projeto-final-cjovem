@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdClose, MdMenu } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
-
 import BtnAjuda from '../BtnAjuda/BtnAjuda.jsx';
 
 const Navbar = () => {
-
   const [abrirMenu, setAbrirMenu] = useState(false);
   const [isAdmin, setIsAdmin] = useState(true);
   const [userLogado, setUserLogado] = useState(false);
@@ -15,157 +13,180 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  const alterarMenu = () => {
-    setAbrirMenu(!abrirMenu);
-  }
-
-  const alterarMenuDoPerfil = () => {
-    setMenuDoPerfil(!menuDoPerfil);
-  }
-
-  const fazerLogin = () => {
-    navigate('/login');
-  }
-
+  const alterarMenu = () => setAbrirMenu(!abrirMenu);
+  const alterarMenuDoPerfil = () => setMenuDoPerfil(!menuDoPerfil);
+  const fazerLogin = () => navigate('/login');
   const fazerLogout = () => {
     setUserLogado(false);
     navigate('/');
   }
 
-  let iconMenu;
-  if (abrirMenu) {
-    iconMenu = <MdClose className='text-3xl' />;
-  } else {
-    iconMenu = <MdMenu className='text-3xl' />;
-  }
+  const iconMenu = abrirMenu ?
+    <MdClose className='text-3xl' /> :
+    <MdMenu className='text-3xl' />
 
-  let botaoLogin;
-  if (!userLogado) {
-    botaoLogin = (
+    const botaoLogin = !userLogado ? (
       <button
         onClick={fazerLogin}
-        className='bg-primary hover:bg-third duration-200 text-zinc-100 text-base font-bold p-3 rounded-3xl uppercase'
+        className='border-2 border-primary text-primary hover:bg-primary/10 font-bold py-3 px-12 uppercase text-sm transition-colors'
       >
         login
       </button>
-    );
-  } else {
-    botaoLogin = null;
-  }
+    ) : null;
 
   return (
     <>
-      <div className="bg-zinc-100 flex justify-around items-center py-2">
-        <div className='flex items-center gap-4 py-2'>
+      <div className="bg-zinc-100 flex justify-between items-center px-12 py-6 shadow-sm">
+        <div className='flex items-center gap-6 '>
           <Link to="/" className='text-4xl font-bold font-teko'>
             <span className='text-secondary'>mais</span>
             <span className='text-black'>mental</span>
           </Link>
 
-          <div className=' hidden lg:block'>
-            <Link to="/cadastro">
-              <BtnAjuda />
+          {isAdmin && (
+            <Link to="/admin" className='hidden lg:block py-1'>
+              <RiAdminLine className='text-3xl text-gray-600 hover:text-third transition-colors' />
             </Link>
-          </div>
-
-          {isAdmin && !abrirMenu && (
-            <div className='hidden lg:block'>
-              <Link to="/admin" className='py-3'>
-                <RiAdminLine className='text-3xl' />
-              </Link>
-            </div>
           )}
         </div>
 
-        <div className='hidden lg:block'>
-          <div className='text-primary text-base font-bold flex items-center gap-7 uppercase'>
-            <Link to="/" className='inline-block py-2 px-3 hover:text-third duration-200 relative group'>
+        <div className='hidden lg:flex flex-1 justify-center'>
+          <div className='flex gap-8'>
+            <Link
+              to="/"
+              className='text-gray-700 py-2 px-3 hover:text-third font-semibold text-lg transition-colors uppercase'
+            >
               home
             </Link>
-            <Link to="/buscar-profissionais" className='inline-block py-2 px-3 hover:text-third duration-200 relative group'>
+            <Link
+              to="/buscar-profissionais"
+              className='text-gray-700 py-2 px-3 hover:text-third font-semibold text-lg transition-colors uppercase'
+            >
               buscar profissionais
             </Link>
-            <Link to="/SouPsicologo" className='inline-block py-2 px-3 hover:text-third duration-200 relative group'>
+            <Link
+              to="/cadastro"
+              className='text-gray-700 py-2 px-3 hover:text-third font-semibold text-lg transition-colors uppercase'
+            >
               sou psicólogo
             </Link>
-            {botaoLogin}
           </div>
         </div>
 
-        {userLogado && (
-          <div className='relative group'>
-            <div className='hidden lg:blo'>
-              <button onClick={alterarMenuDoPerfil} className='p-2'>
-                <FaRegUser className='text-3xl' />
-              </button>
-            </div>
-
-            {menuDoPerfil && (
-              <div className='absolute right-0 mt-2 w-48 bg-white text-sm text-primary rounded shadow-lg'>
-                <Link to="/perfil" className='block px-4 py-2 hover:bg-zinc-100'>
-                  Meu Perfil
-                </Link>
-                <Link to="/config-perfil" className='block px-4 py-2 hover:bg-zinc-100'>
-                  Configurações
-                </Link>
-                {isAdmin && (
-                  <Link to="/admin" className='block px-4 py-2 hover:bg-zinc-100'>
-                    Painel do Administrador
-                  </Link>
-                )}
-                <button
-                  onClick={fazerLogout}
-                  className='block w-full text-left px-4 py-2 hover:bg-zinc-100'
-                >
-                  Logout
-                </button>
-              </div>
+        <div className='flex items-center gap-4'>
+          <div className='hidden lg:flex items-center gap-4'>
+            {!userLogado && (
+              <Link to="/cadastro">
+                <BtnAjuda />
+              </Link>
             )}
-          </div>
-        )}
 
-        <div className='lg:hidden flex items-center gap-4'>
+            {botaoLogin}
+          </div>
+
           {userLogado && (
-            <button onClick={alterarMenuDoPerfil} className='p-2'>
-              <FaRegUser className='text-3xl' />
-            </button>
+            <div className='relative'>
+              <button
+                onClick={alterarMenuDoPerfil}
+                className='p-1 text-gray-600 hover:text-third transition-colors'
+              >
+                <FaRegUser className='text-2xl md:text-3xl lg:text-3xl' />
+              </button>
+
+              {menuDoPerfil && (
+                <div className='absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 border border-gray-100'>
+                  <Link
+                    to="/perfil"
+                    className='block px-4 py-2 text-sm hover:bg-gray-50 text-gray-700'
+                    onClick={alterarMenuDoPerfil}
+                  >
+                    Meu Perfil
+                  </Link>
+
+                  <Link
+                    to="/config-perfil"
+                    className='block px-4 py-2 text-sm hover:bg-gray-50 text-gray-700'
+                    onClick={alterarMenuDoPerfil}
+                  >
+                    Configurações
+                  </Link>
+
+                  {isAdmin && (
+                    <Link
+                      to="/admin"
+                      className='block px-4 py-2 text-sm hover:bg-gray-50 text-gray-700'
+                      onClick={alterarMenuDoPerfil}
+                    >
+                      Painel do Administrador
+                    </Link>
+                  )}
+
+                  <button
+                    onClick={fazerLogout}
+                    className='block w-full text-left px-4 py-2 hover:bg-gray-50 text-sm text-gray-700'
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           )}
-          <button onClick={alterarMenu} aria-label='Menu'>
-            { iconMenu }
+
+          <button
+            onClick={alterarMenu}
+            className='lg:hidden text-gray-600 hover:text-primary p-2 transition-colors'
+            aria-label='Menu'
+          >
+            {iconMenu}
           </button>
         </div>
       </div>
 
       {abrirMenu && (
-        <div className='lg:hidden bg-zinc-100 text-primary text-base font-bold uppercase text-center py-4'>
-          <Link to="/" className='block py-2 px-3 hover:text-third duration-200'>
-            home
-          </Link>
-          <Link to="/buscar-profissionais" className='block py-2 px-3 hover:text-third duration-200'>
-            buscar profissionais
-          </Link>
-          <Link to="/SouPsicologo" className='block py-2 px-3 hover:text-third duration-200'>
-            sou psicólogo
-          </Link>
+        <div className='lg:hidden bg-white py-3 border-t border-gray-200'>
+          <div className='mx-auto max-w-7xl space-y-3'>
+            <Link
+              to='/'
+              className='block py-2 text-gray-700 hover:bg-gray-50 rounded-md text-center font-medium text-lg uppercase'
+              onClick={alterarMenu}
+            >
+              home
+            </Link>
 
-          {!userLogado && (
-            <div className='mt-3 flex justify-center'>
-              <Link to="/cadastro" className='block'>
-                <BtnAjuda />
-              </Link>
-            </div>
-          )}
+            <Link
+              to='/buscar-profissionais'
+              className='block py-2 text-gray-700 hover:bg-gray-50 rounded-md text-center font-medium text-lg uppercase'
+              onClick={alterarMenu}
+            >
+              buscar profissionais
+            </Link>
 
-          {!userLogado && (
-            <div className='mt-2 flex justify-center'>
-              <button 
-                onClick={fazerLogin}
-                className='bg-primary hover:bg-third duration-200 text-zinc-100 text-base font-bold py-3 px-12 rounded-3xl uppercase'
-              >
-                login
-              </button>
-            </div>
-          )}
+            <Link
+              to='/cadastro'
+              className='block py-2 text-gray-700 hover:bg-gray-50 rounded-md text-center font-medium text-lg uppercase'
+              onClick={alterarMenu}
+            >
+              sou psicólogo
+            </Link>
+
+            {!userLogado && (
+              <div className='mt-4 space-y-4 pb-2'>
+                <div className='flex justify-center'>
+                  <Link 
+                    to="/cadastro" 
+                    className='inline-block'
+                    onClick={alterarMenu}
+                  >
+                    <BtnAjuda />
+                  </Link>
+                </div>
+                
+                <div className='flex justify-center'>
+                  {botaoLogin}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       )}
 

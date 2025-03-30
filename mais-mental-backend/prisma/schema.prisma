@@ -84,6 +84,17 @@ model User {
   type_user       TypeUser
   paciente_id     Paciente?
   profissional_id Profissional?
+  log_admin       LogAdmin[]
+}
+
+model LogAdmin {
+  id_log      Int       @id @default(autoincrement())
+  acao        String
+  detalhes    String?
+  createdAt   DateTime  @default(now())
+
+  user_id     Int
+  user        User      @relation(fields: [user_id], references: [id_user])
 }
 
 model Paciente {
